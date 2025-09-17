@@ -32,6 +32,24 @@ public class MathController {
         return Double.parseDouble(numberOne) / Double.parseDouble(numberTwo);
     }
 
+    @GetMapping("/subtraction/{numberOne}/{numberTwo}")
+    public Double subtraction(@PathVariable("numberOne") String numberOne,
+                              @PathVariable("numberTwo") String numberTwo
+    ) {
+        if (isNumeric(numberOne) || isNumeric(numberTwo))
+            throw new UnsupportedMathOperationException("Not a numeric value");
+        return Double.parseDouble(numberOne) - Double.parseDouble(numberTwo);
+    }
+
+    @GetMapping("/multiplication/{numberOne}/{numberTwo}")
+    public Double multiplication(@PathVariable("numberOne") String numberOne,
+                              @PathVariable("numberTwo") String numberTwo
+    ) {
+        if (isNumeric(numberOne) || isNumeric(numberTwo))
+            throw new UnsupportedMathOperationException("Not a numeric value");
+        return Double.parseDouble(numberOne) * Double.parseDouble(numberTwo);
+    }
+
     private boolean isNumeric(String strNumber) {
 
         if (strNumber == null || strNumber.isEmpty()) throw new UnsupportedMathOperationException("Not a numeric value");
