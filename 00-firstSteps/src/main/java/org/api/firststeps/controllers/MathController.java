@@ -23,6 +23,15 @@ public class MathController {
         return Double.parseDouble(numberOne) + Double.parseDouble(numberTwo);
     }
 
+    @GetMapping("/division/{numberOne}/{numberTwo}")
+    public Double division(@PathVariable("numberOne") String numberOne,
+                           @PathVariable("numberTwo") String numberTwo
+    ) {
+        if (isNumeric(numberOne) || isNumeric(numberTwo))
+            throw new UnsupportedMathOperationException("Not a numeric value");
+        return Double.parseDouble(numberOne) / Double.parseDouble(numberTwo);
+    }
+
     private boolean isNumeric(String strNumber) {
 
         if (strNumber == null || strNumber.isEmpty()) throw new UnsupportedMathOperationException("Not a numeric value");
@@ -33,6 +42,7 @@ public class MathController {
 
     // http://localhost:8080/math/dividion/3/5
     // http://localhost:8080/math/subtraction/3/5
+
 
 
 }
