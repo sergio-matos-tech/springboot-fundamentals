@@ -18,8 +18,7 @@ public class MathController {
             @PathVariable("numberTwo") String numberTwo
     ) {
 
-        if (isNumeric(numberOne) || isNumeric(numberTwo))
-            throw new UnsupportedMathOperationException("Not a numeric value");
+        checkIfIsNumeric(isNumeric(numberOne), isNumeric(numberTwo));
         return Double.parseDouble(numberOne) + Double.parseDouble(numberTwo);
     }
 
@@ -27,8 +26,7 @@ public class MathController {
     public Double division(@PathVariable("numberOne") String numberOne,
                            @PathVariable("numberTwo") String numberTwo
     ) {
-        if (isNumeric(numberOne) || isNumeric(numberTwo))
-            throw new UnsupportedMathOperationException("Not a numeric value");
+        checkIfIsNumeric(isNumeric(numberOne), isNumeric(numberTwo));
         return Double.parseDouble(numberOne) / Double.parseDouble(numberTwo);
     }
 
@@ -36,8 +34,7 @@ public class MathController {
     public Double subtraction(@PathVariable("numberOne") String numberOne,
                               @PathVariable("numberTwo") String numberTwo
     ) {
-        if (isNumeric(numberOne) || isNumeric(numberTwo))
-            throw new UnsupportedMathOperationException("Not a numeric value");
+        checkIfIsNumeric(isNumeric(numberOne), isNumeric(numberTwo));
         return Double.parseDouble(numberOne) - Double.parseDouble(numberTwo);
     }
 
@@ -45,22 +42,30 @@ public class MathController {
     public Double multiplication(@PathVariable("numberOne") String numberOne,
                               @PathVariable("numberTwo") String numberTwo
     ) {
-        if (isNumeric(numberOne) || isNumeric(numberTwo))
-            throw new UnsupportedMathOperationException("Not a numeric value");
+        checkIfIsNumeric(isNumeric(numberOne), isNumeric(numberTwo));
         return Double.parseDouble(numberOne) * Double.parseDouble(numberTwo);
+    }
+
+    @GetMapping("/average/{numberOne}/{numberTwo}")
+    public Double average(@PathVariable("numberOne") String numberOne,
+                          @PathVariable("numberTwo") String numberTwo
+    ) {
+        checkIfIsNumeric(isNumeric(numberOne), isNumeric(numberTwo));
+
+        return ( Double.parseDouble(numberOne) + Double.parseDouble(numberTwo) ) / 2.0;
+    }
+
+    private void checkIfIsNumeric(boolean numberOne, boolean numberTwo) {
+        if (numberOne || numberTwo)
+            throw new UnsupportedMathOperationException("Not a numeric value");
     }
 
     private boolean isNumeric(String strNumber) {
 
-        if (strNumber == null || strNumber.isEmpty()) throw new UnsupportedMathOperationException("Not a numeric value");
+        assert strNumber != null;
+        checkIfIsNumeric(false, strNumber.isEmpty());
         String number = strNumber.replace(",", "."); // R$15,56 reais | $15.56 dollars
 
         return !number.matches("[-+]?[0-9]*\\.?[0-9]+");
     }
-
-    // http://localhost:8080/math/dividion/3/5
-    // http://localhost:8080/math/subtraction/3/5
-
-
-
 }
