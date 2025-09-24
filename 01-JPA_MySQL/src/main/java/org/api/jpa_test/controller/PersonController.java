@@ -6,10 +6,7 @@ import org.apache.logging.log4j.Logger;
 import org.api.jpa_test.model.Person;
 import org.api.jpa_test.service.PersonService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,5 +35,13 @@ public class PersonController {
 
         var personFound = service.findById(id);
         return ResponseEntity.ok(personFound);
+    }
+
+    @PostMapping
+    public ResponseEntity<Optional<Person>> save(@RequestBody Person person) {
+        log.info("saving a person");
+
+        var personSaved = service.save(person);
+        return ResponseEntity.ok(personSaved);
     }
 }

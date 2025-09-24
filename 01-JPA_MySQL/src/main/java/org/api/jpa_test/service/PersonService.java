@@ -26,4 +26,9 @@ public class PersonService {
         return Optional.ofNullable(repository.findById(id).
                 orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
     }
+
+    public Optional<Person> save(Person person) {
+        var personSaved = repository.save(person);
+        return Optional.of(personSaved);
+    }
 }
