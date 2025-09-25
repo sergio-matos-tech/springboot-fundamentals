@@ -32,14 +32,14 @@ public class PersonService {
         return Optional.of(personSaved);
     }
 
-    public void deleteById(String id) {
-        var personToDelete = findById(id);
-        repository.deleteById(id);
-    }
-
     public void update(Person person) {
         findById(person.getId());
 
         repository.save(person);
+    }
+
+    public void deleteById(String id) {
+        var personToDelete = findById(id);
+        repository.deleteById(id);
     }
 }

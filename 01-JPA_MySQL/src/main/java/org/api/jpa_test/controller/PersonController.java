@@ -25,7 +25,9 @@ public class PersonController {
     @GetMapping
     public ResponseEntity<List<Person>> findAll() {
         log.info("findAll controller");
+
         var peopleFound = service.findAll();
+
         return ResponseEntity.ok(peopleFound);
     }
 
@@ -34,6 +36,7 @@ public class PersonController {
         log.info("findById Controller");
 
         var personFound = service.findById(id);
+
         return ResponseEntity.ok(personFound);
     }
 
@@ -50,6 +53,16 @@ public class PersonController {
         log.info("Updating person");
 
         service.update(person);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable String id) {
+        log.info("Deleting person with id: {}", id);
+
+        service.deleteById(id);
+
         return ResponseEntity.noContent().build();
     }
 }
