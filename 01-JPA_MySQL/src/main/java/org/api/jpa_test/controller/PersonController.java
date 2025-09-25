@@ -44,4 +44,12 @@ public class PersonController {
         var personSaved = service.save(person);
         return ResponseEntity.ok(personSaved);
     }
+
+    @PutMapping
+    public ResponseEntity<Void> update(@RequestBody Person person) {
+        log.info("Updating person");
+
+        service.update(person);
+        return ResponseEntity.noContent().build();
+    }
 }

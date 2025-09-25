@@ -31,4 +31,15 @@ public class PersonService {
         var personSaved = repository.save(person);
         return Optional.of(personSaved);
     }
+
+    public void deleteById(String id) {
+        var personToDelete = findById(id);
+        repository.deleteById(id);
+    }
+
+    public void update(Person person) {
+        findById(person.getId());
+
+        repository.save(person);
+    }
 }
