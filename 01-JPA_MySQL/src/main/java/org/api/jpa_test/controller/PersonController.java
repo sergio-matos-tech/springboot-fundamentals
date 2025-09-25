@@ -40,6 +40,15 @@ public class PersonController {
         return ResponseEntity.ok(personFound);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<Person>> findByName(@RequestParam String firstName) {
+        log.info("Searching people by first name: {}", firstName);
+
+        var personFound = service.findFirstName(firstName);
+
+        return ResponseEntity.ok(personFound);
+    }
+
     @PostMapping
     public ResponseEntity<Optional<Person>> save(@RequestBody Person person) {
         log.info("saving a person");

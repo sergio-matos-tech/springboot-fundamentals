@@ -27,6 +27,10 @@ public class PersonService {
                 orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
     }
 
+    public List<Person> findFirstName(String firstName) {
+        return repository.findByFirstName(firstName);
+    }
+
     public Optional<Person> save(Person person) {
         var personSaved = repository.save(person);
         return Optional.of(personSaved);
