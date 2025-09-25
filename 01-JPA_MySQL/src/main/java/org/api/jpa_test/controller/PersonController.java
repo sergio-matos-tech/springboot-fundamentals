@@ -24,7 +24,7 @@ public class PersonController {
 
     @GetMapping
     public ResponseEntity<List<Person>> findAll() {
-        log.info("findAll controller");
+        log.debug("Finding all people");
 
         var peopleFound = service.findAll();
 

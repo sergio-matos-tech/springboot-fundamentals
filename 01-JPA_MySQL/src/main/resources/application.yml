@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: 01-JPA_MySQL
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+    show-sql: false
+
+# --------------------------------------------------
+# SpringDoc (Swagger) Configuration
+# --------------------------------------------------
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  info:
+    title: Person Management API - JPA MySQL
+    description: API for managing Person entities with Spring Boot 3 and JPA.
+    version: v1.0.0
+    contact:
+      name: SergioMatos
+      email: sergio.henrique@ufu.br
