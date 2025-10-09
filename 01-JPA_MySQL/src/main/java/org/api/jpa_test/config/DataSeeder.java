@@ -29,21 +29,25 @@ public class DataSeeder implements CommandLineRunner {
                     Person.builder()
                             .firstName("John")
                             .lastName("Doe")
+                            .email("john@gmail.com")
                             .address(new Address("New York", "NY", "USA", "10001"))
                             .build(),
                     Person.builder()
                             .firstName("Jane")
                             .lastName("Smith")
+                            .email("jane@hotmail.com")
                             .address(new Address("Los Angeles", "CA", "USA", "90210"))
                             .build(),
                     Person.builder()
                             .firstName("Peter")
                             .lastName("Jones")
+                            .email("peter@yahoo.com")
                             .address(new Address("London", "N1", "UK", "12345"))
                             .build(),
                     Person.builder()
                             .firstName("Mary")
                             .lastName("Williams")
+                            .email("mary@example.com")
                             .address(new Address("Sydney", "NSW", "Australia", "2000"))
                             .build(),
                     Person.builder()
