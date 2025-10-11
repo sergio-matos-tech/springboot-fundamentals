@@ -1,5 +1,7 @@
 package org.api.jpa_test.service;
 
+import org.api.jpa_test.data.dto.PersonDTO;
+import org.api.jpa_test.mapper.ObjectMapper;
 import org.api.jpa_test.model.Person;
 import org.api.jpa_test.repositories.PersonRepository;
 import org.springframework.http.HttpStatus;
@@ -18,32 +20,38 @@ public class PersonService {
         this.repository = repository;
     }
 
-    public List<Person> findAll() {
-        return repository.findAll();
+    public List<PersonDTO> findAll() {
+        return ObjectMapper.parseListObjects(repository.findAll(), PersonDTO.class);
     }
 
-    public Optional<Person> findById(String id) {
-        return Optional.ofNullable(repository.findById(id).
+    public PersonDTO findById(String id) {
+        var entity = Optional.ofNullable(repository.findById(id).
                 orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+
+        return ObjectMapper.parseObject(entity, PersonDTO.class);
     }
 
-    public List<Person> findFirstName(String firstName) {
-        return repository.findByFirstName(firstName);
+    public List<PersonDTO> findFirstName(String firstName) {
+        var entities = repository.findByFirstName(firstName);
+
+        return ObjectMapper.parseListObjects(entities, PersonDTO.class);
     }
 
-    public Optional<Person> save(Person person) {
-        var personSaved = repository.save(person);
-        return Optional.of(personSaved);
+    public PersonDTO save(PersonDTO personToSave) {
+        var entity = ObjectMapper.parseObject(personToSave, Person.class);
+
+        return ObjectMapper.parseObject(entity, PersonDTO.class);
     }
 
-    public void update(Person person) {
-        findById(person.getId());
+    public void update(PersonDTO person) {
+        var entity = ObjectMapper.parseObject(findById(person.getId()), Person.class);
 
-        repository.save(person);
+        ObjectMapper.parseObject(repository.save(entity), PersonDTO.class);
     }
 
     public void deleteById(String id) {
-        var personToDelete = findById(id);
-        repository.deleteById(id);
+        var entity = ObjectMapper.parseObject(findById(id), Person.class);
+
+        ObjectMapper.parseObject(entity, PersonDTO.class);
     }
 }

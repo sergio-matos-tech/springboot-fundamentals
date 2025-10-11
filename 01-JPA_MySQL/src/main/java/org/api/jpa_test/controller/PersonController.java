@@ -3,7 +3,7 @@ package org.api.jpa_test.controller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.api.jpa_test.model.Person;
+import org.api.jpa_test.data.dto.PersonDTO;
 import org.api.jpa_test.service.PersonService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +23,7 @@ public class PersonController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Person>> findAll() {
+    public ResponseEntity<List<PersonDTO>> findAll() {
         log.debug("Finding all people");
 
         var peopleFound = service.findAll();
@@ -32,16 +32,16 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Person>> findById(@PathVariable String id) {
+    public ResponseEntity<Optional<PersonDTO>> findById(@PathVariable String id) {
         log.info("findById Controller");
 
         var personFound = service.findById(id);
 
-        return ResponseEntity.ok(personFound);
+        return ResponseEntity.ok(Optional.of(personFound));
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Person>> findByName(@RequestParam String firstName) {
+    public ResponseEntity<List<PersonDTO>> findByName(@RequestParam String firstName) {
         log.info("Searching people by first name: {}", firstName);
 
         var personFound = service.findFirstName(firstName);
@@ -50,15 +50,15 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<Optional<Person>> save(@RequestBody Person person) {
+    public ResponseEntity<Optional<PersonDTO>> save(@RequestBody PersonDTO person) {
         log.info("saving a person");
 
         var personSaved = service.save(person);
-        return ResponseEntity.ok(personSaved);
+        return ResponseEntity.ok(Optional.of(personSaved));
     }
 
     @PutMapping
-    public ResponseEntity<Void> update(@RequestBody Person person) {
+    public ResponseEntity<Void> update(@RequestBody PersonDTO person) {
         log.info("Updating person");
 
         service.update(person);
